@@ -2,24 +2,65 @@ body {
     font-family: Arial, sans-serif;
     background-color: #0d1117;
     color: #c9d1d9;
-    text-align: center;
-    padding: 20px;
+    overflow: hidden; /* No scrollbars */
+    text-align: center; /* Center-align the text */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    padding: 0;
+    margin: 0;
+    min-height: 100vh; /* Ensures proper flexbox alignment */
+    width: 100vw; /* Full viewport width */
+  }
+  
+  h1 {
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    margin-bottom: 20px; /* Add space between the title and the grid */
+    margin-top: -130px;
   }
   
   .grid {
     display: grid;
     grid-auto-flow: column; /* Make the grid flow horizontally */
-    grid-template-rows: repeat(7, 20px); /* Define 7 rows of 20px height */
-    gap: 3px; /* Space between grid items */
-    justify-content: center; /* Center horizontally */
-    margin-top: 20px; /* Add margin to the top */
+    grid-template-rows: repeat(7, 1fr); /* Create 7 rows with equal height */
+    gap: 5px; /* Adjust the gap between items */
+    width: 95vw; /* Grid takes 90% of the viewport width */
+    height: 25vh; /* Let the height adjust dynamically */
   }
   
   .grid .day {
-    width: 20px; /* Each grid item width */
-    height: 20px; /* Each grid item height */
-    border-radius: 4px; /* Optional rounded corners */
+    position: relative; /* Ensure the day block is the reference for positioning */
+    aspect-ratio: 1; /* Ensures the width and height are always equal */
     background-color: #ebedf0; /* Default background color */
+    border-radius: 4px; /* Optional rounded corners */
   }
-
+  
+  .grid .day:hover::after {
+    content: "Date: " attr(data-date) " - Contributions: " attr(data-contributionCount); /* Show date and contribution count */
+    position: absolute;
+    bottom: 100%; /* Position the tooltip above the block */
+    left: 50%; /* Center it horizontally relative to the block */
+    transform: translateX(-50%); /* Adjust for perfect centering */
+    background-color: rgba(119, 212, 255, 0.942); /* Dark background for readability */
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap; /* Prevent the text from wrapping */
+    z-index: 10; /* Ensure the tooltip appears above other elements */
+  }
+  
+  .grid .day:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* Align with the tooltip */
+    left: 50%; /* Center it horizontally relative to the block */
+    transform: translateX(-50%);
+    border-width: 5px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent rgba(119, 212, 255, 0.942) transparent; /* Creates an arrow effect */
+    z-index: 10;
+  }
   
