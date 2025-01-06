@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Fetch the GitHub token from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
